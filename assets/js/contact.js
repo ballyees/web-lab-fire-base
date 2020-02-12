@@ -14,19 +14,16 @@ var genders = {
 
 // Add a second document with a generated ID.
 function submitBtn() {
-    // console.log('in_func')
-    // let gender_in = document.getElementsByName('radio_gender')
-    // let buff = 'e'
-    // for (const key in gender_in) {
-    //     if (gender_in[key].checked == true) {
-    //         buff = gender_in[key].value
-    //         break
-    //     }
-    // }
+    if ($('#name_input').val() == '') {
+        alert('Name must be filled out')
+        return false
+    } else if ($('#email_input').val() == '') {
+        alert('Email must be filled out')
+        return false
+    }
     db.collection("contact").add({
             name: $('#name_input').val(),
             gender: $('input[type=radio]:checked').val(),
-            // gender: buff,
             email: $('#email_input').val(),
             detail: $('#detail_input').val(),
             date: new Date()
@@ -57,7 +54,6 @@ db.collection('contact').orderBy("date").onSnapshot(querySnapshot => {
         for (const key in data) {
             if (data[key] == '@' || data[key] == '.' || key == 0) {
                 email += data[key]
-                    // continue
             } else {
                 email += 'x'
             }
